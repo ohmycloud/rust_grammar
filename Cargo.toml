@@ -6,3 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.86"
+winnow = { version = "0.6.16", features = ["simd"] }
+
+[lib]
+name = "log_parser"
+path = "src/lib.rs"
