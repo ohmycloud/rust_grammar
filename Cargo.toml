@@ -7,6 +7,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.86"
+pest = { version = "2.7.11", features = ["pretty-print"] }
+pest_derive = "2.7.11"
 winnow = { version = "0.6.16", features = ["simd"] }
 
 [lib]

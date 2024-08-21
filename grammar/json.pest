@@ -1,0 +1,22 @@
+WHITESPACE = _{ " " | "\t" | "\n" | "\r" }
+
+json = { object | array }
+object = { "{"  ~ (pair ~ ("," ~ pair)*) ~ "}" }
+pair = { string ~ ":" ~ value }
+array = { "[" ~ (value ~ ("," ~ value)*) ~ "]" }
+
+string = ${ "\"" ~ char* ~ "\"" }
+char = @{ unescaped | escaped }
+value = { string | number | object | array | bool | null }
+
+// any char not start with backslash or double quote
+unescaped = { !("\\" | "\"") ~ ANY }
+escaped = { "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "u" ~ hex{4}) }
+hex = {ASCII_HEX_DIGIT}
+// number could have sign, integer part, fraction part, and exponent part
+number = { "-"? ~ int ~ frac? ~ exp? }
+int = { "0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* }
+frac = { "." ~ ASCII_DIGIT+ }
+exp = { ("e" | "E") ~ ("+" | "-")? ~ ASCII_DIGIT+ }
+bool = { "true" | "false" }
+null = { "null" }
